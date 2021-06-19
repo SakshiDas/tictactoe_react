@@ -1,11 +1,14 @@
 import React from 'react';
 import Board from './components/Board';
+import './styles/root.scss';
 const App = () => {
   return (
     <>
-      <h1>Tic Tac Toe</h1>
-      <p> A react Game</p>
-      <Board />
+      <div className="app">
+        <h1>Tic Tac Toe</h1>
+        <p> A react Game</p>
+        <Board />
+      </div>
     </>
   );
 };
