@@ -6,14 +6,14 @@ import { calculateWinner } from './helpers';
 
 import './styles/root.scss';
 
+const NEW_GAME = [{ board: Array(9).fill(null), isXNext: true }];
+
 const App = () => {
-  const [history, setHistory] = useState([
-    { board: Array(9).fill(null), isXNext: true },
-  ]);
+  const [history, setHistory] = useState(NEW_GAME);
   const [currMove, setCurrMove] = useState(0);
 
   const curr = history[currMove];
-  const winner = calculateWinner(curr.board);
+  const { winner, winningSquares } = calculateWinner(curr.board);
 
   const handleSquareClick = position => {
     if (curr.board[position] || winner) {
@@ -39,13 +39,25 @@ const App = () => {
     setCurrMove(move);
   };
 
+  const onNewGame = () => {
+    setHistory(NEW_GAME);
+    setCurrMove(0);
+  };
+
   return (
     <>
       <div className="app">
         <h1>Tic Tac Toe</h1>
         <p> A react Game</p>
         <StatusMessage winner={winner} curr={curr} />
-        <Board board={curr.board} handleSquareClick={handleSquareClick} />
+        <Board
+          board={curr.board}
+          handleSquareClick={handleSquareClick}
+          winningSquares={winningSquares}
+        />
+        <button type="button" onClick={onNewGame}>
+          Start New Game
+        </button>
         <History history={history} moveTo={moveTo} currMove={currMove} />
       </div>
     </>
